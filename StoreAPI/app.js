@@ -1,6 +1,7 @@
 require("dotenv").config();
 // async errors
 
+const connectDB = require("./db/connect");
 const express = require("express");
 const app = express();
 
@@ -26,6 +27,9 @@ const startServer = async () => {
 	try {
 		const PORT = process.env.PORT || 5000;
 		const URL = "localhost";
+
+		await connectDB(process.env.MONGO_URI);
+		console.log("MONGO DB connected successfully");
 		app.listen(PORT, URL, () => {
 			console.log("Listening on PORT : ", PORT);
 		});
